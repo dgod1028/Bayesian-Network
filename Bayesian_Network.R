@@ -23,3 +23,10 @@ network.post <- autosearch(getnetwork(update), data,prior.distribution,trace=FAL
 plot(getnetwork(network.post),main="Bayesian Network",showban=FALSE)
 
 
+
+#### Try
+update$nw$nodes
+
+network.post$table
+
+
