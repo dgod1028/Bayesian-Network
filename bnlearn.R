@@ -8,9 +8,9 @@ library(Ecdat)
 data(Fair)
 head(Fair)
 
-data = Fair[,c(-2,-3,-9,-7)]
-data[] = lapply(data,as.factor)
-colnames(data) = c("性別","子供","宗教","教育","幸福")
+data <- Fair[,c(-2,-3,-9,-7)]
+data[] <- lapply(data,as.factor)
+colnames(data) <- c("性別","子供","宗教","教育","幸福")
 
 bn.gs <- gs(data)
 bn.gs
@@ -23,28 +23,34 @@ plot(bn.gs, main = "Constraint-based algorithms")
 plot(bn.hc, main = "Hill-Climbing",highlight = "幸福")
 
 
-score(bn.hc,data,type="aic")
-
-fitted = bn.fit(bn.hc,data,method="bayes")   ### method = bayes or mle
+score <- score(bn.hc,data,type="aic")
+score
+fitted <- bn.fit(bn.hc,data,method="bayes")   ### method = bayes or mle
 (Coef <- coefficients(fitted))
 
 Coef
-Coef$教育
+Coef$幸福
 
 #### Black list
-banlist = data.frame(from=c("性別","子供"),to=c("子供","性別"))
+banlist <- data.frame(from=c("性別","子供"),to=c("子供","性別"))
 banlist
 
 bn.hc2 <- hc(data,score="aic",blacklist = banlist)
 bn.hc2
 
-score2 = score(bn.hc2,data,type="aic")
+score2 <- score(bn.hc2,data,type="aic")
 
 par(mfrow = c(1,1))
 plot(bn.hc2, main = paste("Bayesian Network"," (Score: ",round(score2,digits=2),")",sep=""),,highlight = "幸福")
 
-fitted2 = bn.fit(bn.hc,data,method="bayes")   ### method = bayes or mle
-(Coef <- coefficients(fitted2))
+fitted2 <- bn.fit(bn.hc2,data,method="bayes")   ### method = bayes or mle
+(Coef2 <- coefficients(fitted2))
+
+Coef2
+Coef2$幸福
+Coef2$教育
+Coef2$宗教
+Coef2$教育
 
 #####
 
