@@ -42,7 +42,6 @@ score2 = score(bn.hc2,data,type="aic")
 
 par(mfrow = c(1,1))
 plot(bn.hc2, main = paste("Bayesian Network"," (Score: ",round(score2,digits=2),")",sep=""),,highlight = "幸福")
-graphviz.plot(bn.hc2)
 
 fitted2 = bn.fit(bn.hc,data,method="bayes")   ### method = bayes or mle
 (Coef <- coefficients(fitted2))
