@@ -1,4 +1,6 @@
 ## install.packages("bnlearn")
+##　関連文献　http://arxiv.org/pdf/0908.3817.pdf
+
 library(bnlearn)
 
 bn.gs <- gs(data)
