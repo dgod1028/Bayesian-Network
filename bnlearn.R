@@ -2,6 +2,14 @@
 ##　関連文献　http://arxiv.org/pdf/0908.3817.pdf
 
 library(bnlearn)
+library(Ecdat)
+
+data(Fair)
+head(Fair)
+
+data = Fair[,c(-2,-3,-9,-7)]
+data[] = lapply(data,as.factor)
+colnames(data) = c("性別","子供","宗教","教育","幸福")
 
 bn.gs <- gs(data)
 bn.gs
@@ -28,8 +36,11 @@ banlist
 
 bn.hc2 <- hc(data,score="aic",blacklist = banlist)
 bn.hc2
+
+score2 = score(bn.hc2,data,type="aic")
+
 par(mfrow = c(1,1))
-plot(bn.hc2, main = "Hill-Climbing",highlight = "幸福")
+plot(bn.hc2, main = paste("Bayesian Network"," (Score: ",round(score2,digits=2),")",sep=""),,highlight = "幸福")
 graphviz.plot(bn.hc2)
 
 
