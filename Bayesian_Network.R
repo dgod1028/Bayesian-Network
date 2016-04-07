@@ -43,7 +43,7 @@ Pro = function(localprob=prob,A=1:2,B=1:2,C=1:5,D=1:7,E=5){
 PR=0
 for(e in E){
   for(a in A) { 					 		## a = sex
-	if(a == 1){sex = "male"} else{female}
+	if(a == 1){sex = "male"} else{sex =female}
 
 	for(b in B) {
 		if(b ==1){kid = "yes"}else{kid="no"}	## b = kid
