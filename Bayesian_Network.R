@@ -1,5 +1,8 @@
 ## install.packages("deal")
 ## install.packages("Ecdat")
+
+##　①　データの読み込み
+
 library(Ecdat)
 
 data(Fair)
@@ -17,12 +20,17 @@ colnames(data) = c("幸福","子供","宗教","教育","性別")
 head(data)
 data = data[,c("幸福","教育","宗教","子供","性別")]
 
+
+### ②  dealの読み込みと実行　Bayesian Network 
+
 library(deal)
 network.prior<- network(data)
 prior.distribution <- jointprior(network.prior)
 update <- learn(network.prior, data, prior.distribution)
 network.post <- autosearch(getnetwork(update), data,prior.distribution,trace=FALSE)
 plot(getnetwork(network.post),main="Bayesian Network",showban=TRUE)
+
+###　③　BanList
 
 ban <- rbind(cbind(1,1:5),cbind(1:5,4),cbind(1:5,5))
 banlist(network.prior) = ban
@@ -31,7 +39,7 @@ network.post <- autosearch(getnetwork(update), data,prior.distribution,trace=FAL
 plot(getnetwork(network.post),main="Bayesian Network",showban=FALSE)
 
 
-##逆推定
+## 　④　逆推定
 
 prob = localprob(getnetwork(network.post))
 
@@ -87,9 +95,6 @@ P_NoKid = Pro(B=2)		###	P(幸福 = 5 | 子供 = no )	 * P(子供 = no)
 P_K = P_Kid / Pr			###	P(子供 = yes | 幸福 = 5)	
 P_NK = P_NoKid / Pr		###	P(子供	= no  | 幸福 = 5)
 
-
-
-
 Pr = Pro()				    ###	P(幸福=5)
 P_MAN = Pro(A=1)			###	P(幸福=5 |　性別 = 男) *P(性別 = 男)
 P_Woman = Pro(A=2)		###	P(幸福=5 |　性別 = 女) *P(性別 = 女）
@@ -105,7 +110,7 @@ P_NK = P_NoKid / Pr		###	P(子供	= no  | 幸福 = 5)
 
 P_E9 = Pro(D=1)
 P_E9_14 = Pro(D = 1:3) /Pr
-P_E17_20 = Pro(D = 5:7) /Pr
+P_E17_20 = Pro(D = 4:7) /Pr
 
 
 cat(paste("P(幸福=5) = ",round(Pr,digits=3),"\n",
@@ -114,5 +119,5 @@ cat(paste("P(幸福=5) = ",round(Pr,digits=3),"\n",
           "P(子供 = yes | 幸福 = 5) = ", round(P_K,digits = 3),"\n",    
           "P(子供 = no | 幸福 = 5) = ", round(P_NK,digits = 3),"\n",
           "P(教育 = 9~14 | 幸福 = 5) = ", round(P_E9_14,digits = 3),"\n",
-          "P(教育 = 17~20 | 幸福 = 5) = ", round(P_E17_20,digits = 3),"\n",
-        sep="") )
+          "P(教育 = 16~20 | 幸福 = 5) = ", round(P_E17_20,digits = 3),"\n",
+          sep="") )
