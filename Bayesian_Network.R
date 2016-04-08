@@ -110,7 +110,7 @@ P_E17_20 = Pro(D = 5:7) /Pr
 
 cat(paste("P(幸福=5) = ",round(Pr,digits=3),"\n",
           "P(性別 = 男 | 幸福 = 5) = ", round(P_M,digits = 3),"\n",
-          "P(性別 = 男 | 幸福 = 5) = ", round(P_W,digits = 3),"\n",
+          "P(性別 = 女 | 幸福 = 5) = ", round(P_W,digits = 3),"\n",
           "P(子供 = yes | 幸福 = 5) = ", round(P_K,digits = 3),"\n",    
           "P(子供 = no | 幸福 = 5) = ", round(P_NK,digits = 3),"\n",
           "P(教育 = 9~14 | 幸福 = 5) = ", round(P_E9_14,digits = 3),"\n",
